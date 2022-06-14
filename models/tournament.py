@@ -1,11 +1,12 @@
 from tinydb import TinyDB, Query
 from datetime import datetime
+from models.round import Round
 import random
 import time
-player_db = TinyDB("players.json")
+player_db = TinyDB("DB/players.json")
 player_db_query = Query()
 
-tournament_db = TinyDB("tournaments.json")
+tournament_db = TinyDB("DB/tournaments.json")
 # tournament_db  = tournament_db.table("tournaments")
 TournamentQuery = Query()
 
@@ -19,9 +20,9 @@ class Tournament:
         time_control: str,
         round: int,
         players: list,
-        rounds: list,
+        rounds: list, # Matche pas forcement des obj => j1, j2
         round_total: 4,
-        description: str
+        description: str,
     ):
         self.name = name
         self.location = location
@@ -66,24 +67,35 @@ class Tournament:
     
     def get_tournament_players(id):
         tournament_players = []
-        tournament_db = TinyDB("tournaments.json")
+        players_details = []
+        tournament_db = TinyDB("DB/tournaments.json")
         res = tournament_db.get(doc_id=id)
         if res is not None:
             
-            players = res['players']
-            for p in players:
+            players = res["players"]
+            for p in players.split(','):
                 r = player_db.get(doc_id=p)
-                print(f'YOUR Player : {r}')
-                tournament_players.append(r)
-        print(f'YOUR tournament players : {tournament_players}')
-        
+                players_details.append(r)
+                print(f'YOUR Player : {p}')
+                print(f'YOUR Player Type : {type(p)}')
+                print(f'YOUR Players details : {players_details}')
+
+                if p:
+                    tournament_players.append(p)
+            round = Round(tournament_players, (players_details))
+            print(f'YOUR tournament players : {round.game()}')
+
+        # CHESS_PLAYERS = [players_details(last_name, classement) for last_name, classement in zip(Round.players_details)]
+        print()
         return tournament_players
+
+    
 
     def create_tournament(self):
         return tournament_db.insert(self.tournament_serializer())
 
     def get_one_tournament(id):
-        tournament_db = TinyDB("tournaments.json")
+        tournament_db = TinyDB("DB/tournaments.json")
         res = tournament_db.get(doc_id=id)
         if res is not None:
             print(f'YOUR TOURNAMENT IS : {res}')
@@ -99,7 +111,7 @@ class Tournament:
         print(f'YOUR TOURNAMENT IS : { r }')
 
     def load_tournaments_db():
-        tournament_db = TinyDB("tournaments.json")
+        tournament_db = TinyDB("DB/tournaments.json")
         tournament_db.all()
         tournaments = []
         for item in tournament_db:

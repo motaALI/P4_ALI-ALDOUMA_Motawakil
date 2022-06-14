@@ -1,7 +1,7 @@
 from tinydb import TinyDB
 from datetime import datetime
 
-player_db = TinyDB("players.json")
+player_db = TinyDB("DB/players.json")
 from colorama import Fore
 
 
@@ -38,13 +38,13 @@ class Player:
         self.gender = gender
         self.classement = classement
 
-        self.player_db = TinyDB("players.json")
+        self.player_db = TinyDB("DB/players.json")
 
     def player_serializer(self):
         """Return serialized player info"""
         return {
-            "last_name": self.last_name,
             "first_name": self.first_name,
+            "last_name": self.last_name,
             "date_of_birth": self.date_of_birth,
             "gender": self.gender,
             "classement": self.classement,
@@ -79,7 +79,7 @@ class Player:
         """Load player database
         @return: list of players
         """
-        player_db = TinyDB("players.json")
+        player_db = TinyDB("DB/players.json")
         player_db.all()
         players = []
         for item in player_db:

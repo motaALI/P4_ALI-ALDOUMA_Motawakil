@@ -2,12 +2,26 @@ class TournamentView:
 
     def showAllView(list):
         print(f"Il y a {len(list)} tournois")
+        print("|{:<15}|{:<15}|{:<15}|{:<15}|{:<15}|{:<20}|".format(
+            "Nom", "location", "Commance le :", "Fin", "Joueurs", "description")
+        )
+        print("------------------------------------------------------------------------------------------")
         for tournament in list:
-            print(f"{tournament.doc_id}", end='-')
-            print(f"{tournament['name']} {tournament['location']}", end=' | ')
-            print(f"{tournament['start_at']} {tournament['end_at']}", end=' | ')
-            print(f"{tournament['rounds']} {tournament['players']}", end=' | ')
-            print(f"{tournament['time_control']} {tournament['description']}")
+            print("|{:<15}|{:<15}|{:<15}|{:<15}|{:<15}|{:<20}|".format(
+                tournament['name'],
+                tournament['location'],
+                tournament['start_at'],
+                tournament['end_at'],
+                tournament['players'],
+                tournament['description']
+
+            ))
+            print("-----------------------------------------------------------------------------------------")
+            # print(f"{tournament.doc_id}", end='-')
+            # print(f"{tournament['name']} {tournament['location']}", end=' | ')
+            # print(f"{tournament['start_at']} {tournament['end_at']}", end=' | ')
+            # print(f"{tournament['rounds']} {tournament['players']}", end=' | ')
+            # print(f"{tournament['time_control']} {tournament['description']}")
 
     def create_tournament():
         name = input("Entrez le nom de tornois : ")
@@ -27,5 +41,5 @@ class TournamentView:
         return tournament_id
 
     def get_tournament_players():
-        tournament_id = input("Entrez le id de tornois sur lequel vous voulez ajouter des jours : ")
+        tournament_id = input("Entrez le id de tornois sur lequel vous voulez voir ses jours : ")
         return tournament_id
