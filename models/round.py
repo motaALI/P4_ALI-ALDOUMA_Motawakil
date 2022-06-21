@@ -1,8 +1,6 @@
 import random
-import time
 import itertools
 
-from models.player import Player
 
 class Round:
     def __init__(self, players, players_details):

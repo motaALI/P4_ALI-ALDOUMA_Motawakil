@@ -43,3 +43,16 @@ class TournamentView:
     def get_tournament_players():
         tournament_id = input("Entrez le id de tornois sur lequel vous voulez voir ses jours : ")
         return tournament_id
+
+
+    def insert_multi_players():
+        tournament_id = input("Entrez le id de tornois sur lequel vous voulez ajouter des jours : ")
+        en = 0
+        players = []
+        while en < 8:
+            player = input("Veuillez entrer le jour \n Prènom, Nom, Date , Genre, Classenemt ?")
+            print("Prènom, Nom, Date , Genre, Classenemt ?")
+            players.append(player)
+            print(player)
+            print(players)
+            return players

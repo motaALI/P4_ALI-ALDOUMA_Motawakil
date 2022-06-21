@@ -34,7 +34,7 @@ class Controller_tournament:
 
     def addPlayersToTournaments():
         print("Players ADDED To Tournaments")
-        id =  TournamentView.addPlayersToTournaments()
+        id =  TournamentView.insert_multi_players()
         return Tournament.get_one_tournament(id)
 
     def get_tournament_players():
@@ -62,8 +62,9 @@ class Controller_tournament:
             print("Lister les joueurs de tornoi")
             Controller_tournament.get_tournament_players()
         elif response == "2":
-            print("Ajouter huit joueurs")
-            Controller_tournament.addPlayersToTournaments()
+            for i in range(8):
+                print(f"Veuillez ajouter votre {i} jour")
+                Controller_tournament.addPlayersToTournaments()
         elif response == "3":
             print("Liste des tournois")
             Controller_tournament.showAllTournaments()

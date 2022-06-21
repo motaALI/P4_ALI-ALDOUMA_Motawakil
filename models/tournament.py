@@ -1,5 +1,6 @@
 from tinydb import TinyDB, Query
 from datetime import datetime
+from models.player import Player
 from models.round import Round
 import random
 import time
@@ -103,10 +104,18 @@ class Tournament:
         else:
             # print(f"IL N'A Y PAS UN TOURNOI POUR L'ID {id}")
             return False
+
+    def insert_multi_players(**players):
+        for p in players:
+            player = Player(p["first_name"], p["last_name"], p["gender"], p["date_of_birth"], p["classement"])
+            print(f"YOUR PLAYERS FOR A TOURNAMENT ARE : {player}")
+            return player.create_player(p)
+
     
     def addPlayersToTournaments(id):
-        # tournament_db = TinyDB("tournaments.json")
         res = tournament_db.search(TournamentQuery.doc_id == id)
+
+
         r = res['players']
         print(f'YOUR TOURNAMENT IS : { r }')
 
