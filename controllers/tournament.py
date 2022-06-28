@@ -3,10 +3,40 @@ from views.tournament import TournamentView
 from views.player import PlayerView
 from view import Display
 
+class Round:
+    def __init__(self, matches):
+        self.matches = matches
 
 class Controller_tournament:
     def __init__(self):
         self.display = Display
+
+    def create_first_round(tournament):
+        players = tournament["players"]
+        sorted(players, key=lambda player: player["score_tournament"])
+        player_round = [(players[i], players[i+4], [0,0]) for i in range(0, len(players), 2)]
+        tournament.matches = [[players[i], players[i+4]] for i in range(0, len(players), 2)]
+        round = Round(player_round)
+        print("ROUNDDDD : ",round)
+    
+
+    def next_round(tournament):
+        players = tournament["players"]
+        sorted(players, key=lambda player: player["score_tournament"])
+        matches = []
+        for index, player in enumerate(players):
+            if not [player, players[index +1]] in tournament.matches:
+                matches[player, players[index +1]]
+                tournament.matches = [player, players[index+1]]
+                continue
+
+    def set_results(round):
+        for index, match in enumerate(round):
+            print("match", index+1)
+            print(match[0], "VS", match[1])
+        tournament = Tournament
+        tournament.next_round()
+        tournament.save()
 
     def showAllTournaments():
         tournaments = Tournament.load_tournaments_db()
@@ -27,6 +57,7 @@ class Controller_tournament:
             description
         ) = TournamentView.create_tournament()
         tournament = Tournament(name, location, start_at, end_at, time_control, round, players, rounds, round_total, description)
+        tournament.create_first_round()
         return tournament.create_tournament()
     
     def update_tournament():

@@ -1,15 +1,16 @@
 from tinydb import TinyDB, Query
-from datetime import datetime
 from models.player import Player
-from models.round import Round
-import random
-import time
+# from models.round import Round
 player_db = TinyDB("DB/players.json")
 player_db_query = Query()
 
 tournament_db = TinyDB("DB/tournaments.json")
 # tournament_db  = tournament_db.table("tournaments")
 TournamentQuery = Query()
+
+class Round:
+    def __init__(self, matches):
+        self.matches = matches
 
 class Tournament:
     def __init__(
@@ -84,15 +85,52 @@ class Tournament:
                 if p:
                     tournament_players.append(p)
             round = Round(tournament_players, (players_details))
-            print(f'YOUR tournament players : {round.game()}')
+            print(f'YOUR tournament players : {round.matches}')
 
         # CHESS_PLAYERS = [players_details(last_name, classement) for last_name, classement in zip(Round.players_details)]
         print()
         return tournament_players
 
+    def create_first_round(tournament):
+        players = tournament.players
+        sorted_players = sorted(players, key=lambda player: player["score_tournament"])
+        print(f"sorted players : {sorted_players}")
+        player_round = [(players[i], players[i + 4], [0, 0]) for i in range(0, len(players),2)]
+        round.matches = [[players[i], players[i+4]] for i in range(0, len(players), 2)]
+        round = Round(player_round)
+        print(f'Your first round {round}')
+        return round
+
+    def next_round(tournament):
+        players = tournament.players
+        sorted(players, key=lambda player: player["score_tournament"])
+        matches = []
+        for index, player in enumerate(players):
+            if not [player, players[index +1]] in tournament.matches:
+                matches[player, players[index +1]]
+                tournament.matches = [player, players[index+1]]
+                continue
+
+    def set_results(round):
+        for index, match in enumerate(round):
+            print("match", index+1)
+            print(match[0], "VS", match[1])
+        tournament = Tournament
+        tournament.next_round()
+        tournament.save()
     
 
     def create_tournament(self):
+        players_per_tournament = []
+        # res = tournament_db.get(doc_id=id)
+        # if res is not None:
+        players = self.players
+        print(f'YOUR DATA : {self.players}')
+        for p in players.split(','):
+            r = player_db.get(doc_id=p)
+            players_per_tournament.append(r)
+        # print(f'YOUR Players per tournament are : {players_per_tournament}')
+        # self.create_first_round(players)
         return tournament_db.insert(self.tournament_serializer())
 
     def get_one_tournament(id):
@@ -128,3 +166,8 @@ class Tournament:
         return tournaments
 
     
+
+    def rounds_of_tournament(self):
+        tournament = self.get_one_tournament()
+        self.create_first_round(tournament)
+        self.next_round(tournament)

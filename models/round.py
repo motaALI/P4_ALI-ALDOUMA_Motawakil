@@ -10,23 +10,32 @@ class Round:
         self.game_round = 0
         self.matches = []
 
-    def next_round(self):
-        """Go the next round of the tournament"""
-        self.game_round += 1
+    # def next_round(self):
+    #     """Go the next round of the tournament"""
+    #     self.game_round += 1
 
-        try:
-            print(self.tournament_rounds[self.game_round])
-        except KeyError:
-            return
+    #     try:
+    #         print(self.tournament_rounds[self.game_round])
+    #     except KeyError:
+    #         return
+
+    def next_round(self):
+        players = self.players
+        sorted(players, key=lambda player: player["score_tournament"])
+        matches = []
+        for index, player in enumerate(players):
+            if not [player, players[index +1]] in self.matches:
+                matches[player, players[index +1]]
+                self.matches = [player, players[index+1]]
+                continue
 
 
     def make_pair(self):
-        """Combine two players randomly to play a chess game"""
-        pairs = list(itertools.combinations(self.players, 2))
-        pairs_unique = set(pairs)
-        print(f'YOUR tournament players pairs : {pairs_unique}')
-        print([self.players[i:i+2] for i in range(0, len(self.players), 2)])
-        return pairs_unique
+        players = self.players
+        sorted(players, key=lambda player: player["score_tournament"])
+        player_round = [(players[i], players[i+4], [0,0]) for i in range(0, len(players), 2)]
+        self.matches = [[players[i], players[i+4]] for i in range(0, len(players), 2)]
+        return Round(player_round)
 
     def game(self):
         matches = []
@@ -39,7 +48,6 @@ class Round:
         self.make_pair()
         players_d = self.players_details
         for player in players_d:
-            print(f'TOOOOOOOOOOOOOOOOOOOOOOOOO: {player["last_name"]}({player["classement"]})')
             matches.append(player)
         print(f'LIST OF MATCHES : {matches}')
         print("------------------------------------------")
