@@ -2,22 +2,16 @@ from tinydb import TinyDB
 from datetime import datetime
 
 player_db = TinyDB("DB/players.json")
-from colorama import Fore
-
 
 """
-
-
 ●	Nom de famille
 ●	Prénom
 ●	Date de naissance
 ●	Sexe
 ●	Classement
 ○	Il s'agit d'un chiffre positif.
-
 """
 """
-TODO => VALIDATION 
 SEND APP CODE TO GIT P1
 """
 
@@ -38,7 +32,6 @@ class Player:
         self.gender = gender
         self.classement = classement
         self.score_tournament = 0
-
         self.player_db = TinyDB("DB/players.json")
 
     def player_serializer(self):
@@ -53,7 +46,7 @@ class Player:
 
     # String méthode pour renvoyer le nom + prènom de joueur
     def full_name(self):
-        print(f"{Fore.RED}  {self.last_name}")
+        print(f"{self.last_name}")
 
     def __str__(self):
         return f"Nom : {self.first_name} Prènom : {self.last_name}"
@@ -70,7 +63,6 @@ class Player:
         # result = []
         result = player_db.all()
         return result
-
 
     def create_player(self):
         return player_db.insert(self.player_serializer())

@@ -2,6 +2,7 @@ from models.player import Player
 from views.player import PlayerView
 from view import Display
 
+
 class Controller_player:
     def __init__(self):
         self.display = Display

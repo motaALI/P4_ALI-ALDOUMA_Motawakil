@@ -3,7 +3,6 @@ from colorama import Fore
 
 
 class Validators:
-
     def is_valide_date(your_date):
         format = "%d-%m-Y"
 
@@ -20,7 +19,7 @@ class Validators:
 
     def is_valide_input_gender(gender: str):
         error_message = ""
-        if gender.upper() == 'F' or gender.upper() == 'M' or gender.upper() == 'O':
+        if gender.upper() == "F" or gender.upper() == "M" or gender.upper() == "O":
             error_message = "Veuillez entrer [F, M, O] comme genre !"
             return Fore.RED + error_message
         else:
