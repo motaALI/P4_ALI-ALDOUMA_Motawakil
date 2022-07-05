@@ -57,15 +57,21 @@ class Controller_tournament:
             description
         ) = TournamentView.create_tournament()
         tournament = Tournament(name, location, start_at, end_at, time_control, round, players, rounds, round_total, description)
-        tournament.create_first_round()
         return tournament.create_tournament()
     
     def update_tournament():
         print('TOURNAMENT UPDATED !')
 
-    def addPlayersToTournaments():
+    def add_players_to_tournament():
         print("Players ADDED To Tournaments")
         id =  TournamentView.insert_multi_players()
+        return Tournament.get_one_tournament(id)
+
+    """
+    Display rounds in the tournament
+    """
+    def get_rounds_in_tournaments():
+        id =  TournamentView.get_rounds_in_tournaments()
         return Tournament.get_one_tournament(id)
 
     def get_tournament_players():
@@ -78,9 +84,10 @@ class Controller_tournament:
         menu = {
             "1": "Créer un nouveau tournoi",
             "2": "Ajouter huit joueurs",
-            "7": "Lister les joueurs de tornoi",
+            "7": "Lister les joueurs de tournoi",
             "3": "Liste des tournois",
             "4": "Modifier un tournoi",
+            "5": "Afficher les round d'un tournoi",
             "R": "Reveneir à l'accueil",
         }
 
@@ -95,12 +102,14 @@ class Controller_tournament:
         elif response == "2":
             for i in range(8):
                 print(f"Veuillez ajouter votre {i} jour")
-                Controller_tournament.addPlayersToTournaments()
+                Controller_tournament.add_players_to_tournaments()
         elif response == "3":
             print("Liste des tournois")
             Controller_tournament.showAllTournaments()
         elif response == "4":
             Controller_tournament.update_tournament()
+        elif response == "5":
+            Controller_tournament.get_rounds_in_tournaments()
         elif response == "R":
             print("Reveneir à l'accueil")
         else:
