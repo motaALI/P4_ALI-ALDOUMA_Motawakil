@@ -1,5 +1,6 @@
-from tinydb import TinyDB
 from datetime import datetime
+
+from tinydb import TinyDB
 
 player_db = TinyDB("DB/players.json")
 

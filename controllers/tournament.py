@@ -1,6 +1,6 @@
 from models.tournament import Tournament
-from views.tournament import TournamentView
 from view import Display
+from views.tournament import TournamentView
 
 
 class Round:

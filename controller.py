@@ -1,6 +1,6 @@
-from view import Display
 from controllers.player import Controller_player
 from controllers.tournament import Controller_tournament
+from view import Display
 
 
 class Controller:

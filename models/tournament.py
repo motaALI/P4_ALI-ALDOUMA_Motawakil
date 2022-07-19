@@ -1,4 +1,6 @@
-from tinydb import TinyDB, Query
+from tinydb import Query, TinyDB
+
+# from tinydb.operations import set
 from models.player import Player
 
 player_db = TinyDB("DB/players.json")
@@ -92,42 +94,42 @@ class Tournament:
     def create_first_round(self):
         players = self.players
         matches = []
-        player_data = [player_db.get(doc_id=p) for p in players]
+        player_dat = []
+        # player_data = [player_db.get(doc_id=p) for p in players]
+        for p in players:
+            test = player_db.get(doc_id=p)
+            test.update({"id": p})
+            player_dat.append(test)
+        print(f"TOTTOTOT {player_dat}")
         sorted_players = sorted(
-            player_data, key=lambda player: player["classement"], reverse=True
+            player_dat, key=lambda player: player["classement"], reverse=True
         )
-        # player_round = [(players[i], players[i + 4], [0, 0]) for i in range(0, len(players),2)]
-        # p_one_index = 0
-        # p_two_index = p_one_index+1
-        # index = 0
-        # TODO filter by classement => then create the tournament
-        print(list(zip(sorted_players[1::2], sorted_players[2::2])))
-        matches_with_players_details = list(
-            zip(sorted_players[::2], sorted_players[1::2])
+        # matches_with_players_details = list(
+        #     zip(sorted_players[::2], sorted_players[1::2])
+        # )
+        matches = list(zip(sorted_players[::2], sorted_players[1::2]))
+        sorted_players_ids = []
+        for m in matches:
+            for i in m:
+                sorted_players_ids.append(
+                    {
+                        "player": i.get("id"),
+                        # "last_name": i.get("last_name"),
+                        # "classement": i.get("classement"),
+                        # "score_tournament": i.get("score_tournament"),
+                    }
+                )
+                print(f"SHISHISHS : {i.get('id')}")
+
+        sorted_players_ids = list(
+            zip(sorted_players_ids[::2], sorted_players_ids[1::2])
         )
-        matches = list(zip(players[::2], players[1::2]))
-        # while len(players):
-        #     print(players[p_one_index])
-        #     print(players[p_two_index])
-        #     print("----------------")
-        #     try:
-        #         if not [players[index], players[index+1]] in self.rounds:
-        #             matches.append([players[index], players[index+1]])
-        #             del players[index]
-        #             del players[index-1]
-        #             index = 0
-        #         else:
-        #             index += 1
-        #     except KeyError:
-        #         matches.append([players[0], players[0 + index -1]])
-        #         self.matches = (players[0], players[0 + index -1])
-        #         del players[0]
-        #         del players[0 + index - 1]
-        rounds = Round(matches)
-        # print(f"Matches : {matches_with_players_details}")
-        # print(f"Matches : {matches}")
-        print(f"Rounds : {rounds}")
-        return matches_with_players_details
+        print(f"OLOLOLO, {matches}")
+        # rounds = Round(sorted_players_ids)
+        # self.rounds.append(rounds)
+        print(f"Matches !!!! : {matches}")
+        # print(f"Rounds !!!! : {rounds.matches}")
+        return sorted_players_ids
 
     def next_round(self):
         players = self.players
@@ -159,13 +161,14 @@ class Tournament:
             r = player_db.get(doc_id=p)
             players_per_tournament.append(r)
         # print(f'YOUR Players per tournament are : {players_per_tournament}')
-        print(f"ROUNDDDS :{self.create_first_round()}")
-        print(f"TOURNAMENT : {tournament_db.insert(self.tournament_serializer())}")
+        # print(f"ROUNDDDS :{self.create_first_round()}")
+        # print(f"TOURNAMENT : {tournament_db.insert(self.tournament_serializer())}")
         rounds = self.create_first_round()
         # TournamentQuery.rounds == rounds
         # tournament_db.search((TournamentQuery.rounds==rounds))
         tournament_db.insert(self.tournament_serializer())
         # tournament_db.update({'rounds': rounds}, TournamentQuery.exists())
+        print(f"Your tournament created with matches : {rounds}")
         return tournament_db.update({"rounds": rounds})
 
     def get_one_tournament(id):

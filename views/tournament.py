@@ -1,3 +1,6 @@
+from prettytable import PrettyTable
+
+
 class TournamentView:
     def showAllView(list):
         print(f"Il y a {len(list)} tournois")
@@ -16,15 +19,26 @@ class TournamentView:
 
         #     ))
         #     print("-----------------------------------------------------------------------------------------")
+        # for tournament in list:
+        #     print(f"{tournament.doc_id}", end="- ")
+        #     print(f"{tournament['name']}", end=" | ")
+        #     print(f"{tournament['location']}", end=" | ")
+        #     print(f"{tournament['start_at']}", end=" | ")
+        #     print(f"{tournament['end_at']}", end=" | ")
+        #     print(f"{tournament['players']}", end=" | ")
+        #     print(f"{tournament['description']}")
+        my_table = PrettyTable()
+        my_table.field_names = ["Nom", "location", "Commance le ", "Fin", "Joueurs", "Description"]
+        
         for tournament in list:
-            print(f"{tournament.doc_id}", end="- ")
-            print(f"{tournament['name']}", end=" | ")
-            print(f"{tournament['location']}", end=" | ")
-            print(f"{tournament['start_at']}", end=" | ")
-            print(f"{tournament['end_at']}", end=" | ")
-            print(f"{tournament['players']}", end=" | ")
-            print(f"{tournament['description']}")
-
+            my_table.add_row([tournament['name'],
+                tournament['location'],
+                tournament['start_at'],
+                tournament['end_at'],
+                tournament['players'],
+                tournament['description']])
+        print(my_table)
+        
     def create_tournament():
         # name = input("Entrez le nom de tournois : ")
         # location = input("Entrez le lieu de tournois : ")

@@ -1,27 +1,20 @@
+from prettytable import PrettyTable
+
 class PlayerView:
     def showAllView(list):
         print(f"Il y a {len(list)} jours")
-        print(
-            "|{:<15}|{:<15}|{:<18}|{:<10}|{:<15}|".format(
-                "Prènom", "Nom", "Date de naissance", "Genre", "Classement"
-            )
-        )
-        print(
-            "----------------------------------------------------------------------------"
-        )
+        players_table = PrettyTable()
+        players_table.field_names = ["Prènom", "Nom", "Date de naissance", "Genre", "Classement"]
         for player in list:
-            print(
-                "|{:<15}|{:<15}|{:<18}|{:<10}|{:<15}|".format(
-                    player["first_name"],
-                    player["last_name"],
-                    player["date_of_birth"],
-                    player["gender"],
-                    player["classement"],
-                )
-            )
-            print(
-                "----------------------------------------------------------------------------"
-            )
+            players_table.add_row([
+                player["first_name"],
+                player["last_name"],
+                player["date_of_birth"],
+                player["gender"],
+                player["classement"],
+            ])
+            players_table.add_row(['------', '------', '------', '------', '------'])
+        print(players_table)
 
     def create_player():
         first_name = input("Entrez le prènom ? ")
