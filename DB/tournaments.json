@@ -8,46 +8,74 @@
             "time_control": 10,
             "round": 0,
             "players": [
+                11,
+                12,
+                14,
+                15,
                 1,
-                2,
-                3,
-                4,
                 5,
-                8,
-                9,
-                10
+                7,
+                8
             ],
             "rounds": [
                 [
                     {
-                        "player": 8
+                        "player": 8,
+                        "score": 1.0
                     },
                     {
-                        "player": 1
+                        "player": 12,
+                        "score": 0.0
                     }
                 ],
                 [
                     {
-                        "player": 4
+                        "player": 11,
+                        "score": 0.0
                     },
                     {
-                        "player": 2
+                        "player": 1,
+                        "score": 1.0
                     }
                 ],
                 [
                     {
-                        "player": 3
+                        "player": 5,
+                        "score": 0.0
                     },
                     {
-                        "player": 5
+                        "player": 7,
+                        "score": 1.0
                     }
                 ],
                 [
                     {
-                        "player": 9
+                        "player": 15,
+                        "score": 1.0
                     },
                     {
-                        "player": 10
+                        "player": 14,
+                        "score": 0.0
+                    }
+                ],
+                [
+                    {
+                        "player": 8,
+                        "score": 1.0
+                    },
+                    {
+                        "player": 1,
+                        "score": 0.0
+                    }
+                ],
+                [
+                    {
+                        "player": 7,
+                        "score": 1.0
+                    },
+                    {
+                        "player": 15,
+                        "score": 0.0
                     }
                 ]
             ],

@@ -12,27 +12,27 @@ class Controller_tournament:
     def __init__(self):
         self.display = Display
 
-    def create_first_round(tournament):
-        players = tournament["players"]
-        sorted(players, key=lambda player: player["score_tournament"])
-        player_round = [
-            (players[i], players[i + 4], [0, 0]) for i in range(0, len(players), 2)
-        ]
-        tournament.matches = [
-            [players[i], players[i + 4]] for i in range(0, len(players), 2)
-        ]
-        round = Round(player_round)
-        print("ROUNDDDD :", round)
+    # def create_first_round(tournament):
+    #     players = tournament["players"]
+    #     sorted(players, key=lambda player: player["score_tournament"])
+    #     player_round = [
+    #         (players[i], players[i + 4], [0, 0]) for i in range(0, len(players), 2)
+    #     ]
+    #     tournament.matches = [
+    #         [players[i], players[i + 4]] for i in range(0, len(players), 2)
+    #     ]
+    #     round = Round(player_round)
+    #     print("ROUNDDDD :", round)
 
-    def next_round(tournament):
-        players = tournament["players"]
-        sorted(players, key=lambda player: player["score_tournament"])
-        matches = []
-        for index, player in enumerate(players):
-            if not [player, players[index + 1]] in tournament.matches:
-                matches[player, players[index + 1]]
-                tournament.matches = [player, players[index + 1]]
-                continue
+    # def next_round(tournament):
+    #     players = tournament["players"]
+    #     sorted(players, key=lambda player: player["score_tournament"])
+    #     matches = []
+    #     for index, player in enumerate(players):
+    #         if not [player, players[index + 1]] in tournament.matches:
+    #             matches[player, players[index + 1]]
+    #             tournament.matches = [player, players[index + 1]]
+    #             continue
 
     def set_results(round):
         for index, match in enumerate(round):
@@ -93,15 +93,19 @@ class Controller_tournament:
     def get_tournament_players():
         id = TournamentView.get_tournament_players()
         return Tournament.get_tournament_players(id)
-
+    
+    def insert_tournament_result():
+        id = TournamentView.get_tournament_players()
+        return Tournament.insert_tournament_result(id)
+    
     def manage_tournaments():
         menu = {
             "1": "Créer un nouveau tournoi",
-            "2": "Ajouter huit joueurs",
-            "7": "Lister les joueurs de tournoi",
-            "3": "Liste des tournois",
-            "4": "Modifier un tournoi",
-            "5": "Afficher les round d'un tournoi",
+            "2": "Saisir les resultats d'un tournaoi",
+            "3": "Lister les joueurs de tournoi",
+            "4": "Liste des tournois",
+            "5": "Modifier un tournoi",
+            "6": "Afficher les round d'un tournoi",
             "R": "Reveneir à l'accueil",
         }
 
@@ -110,19 +114,19 @@ class Controller_tournament:
         if response == "1":
             print("Créer un tournoi")
             Controller_tournament.create_tournament()
-        elif response == "7":
+        elif response == "2":
             print("Lister les joueurs de tornoi")
             Controller_tournament.get_tournament_players()
-        elif response == "2":
+        elif response == "3":
             for i in range(8):
                 print(f"Veuillez ajouter votre {i} jour")
                 Controller_tournament.add_players_to_tournaments()
-        elif response == "3":
+        elif response == "4":
             print("Liste des tournois")
             Controller_tournament.showAllTournaments()
-        elif response == "4":
-            Controller_tournament.update_tournament()
         elif response == "5":
+            Controller_tournament.update_tournament()
+        elif response == "6":
             Controller_tournament.get_rounds_in_tournaments()
         elif response == "R":
             print("Reveneir à l'accueil")

@@ -4,29 +4,6 @@ from prettytable import PrettyTable
 class TournamentView:
     def showAllView(list):
         print(f"Il y a {len(list)} tournois")
-        # print("|{:<20}|{:<15}|{:<15}|{:<15}|{:<25}|{:<20}|".format(
-        #     "Nom", "location", "Commance le :", "Fin", "Joueurs", "description")
-        # )
-        # print("------------------------------------------------------------------------------------------")
-        # for tournament in list:
-        #     print("|{:<20}|{:<15}|{:<15}|{:<15}|{:<25}|{:<20}|".format(
-        #         tournament['name'],
-        #         tournament['location'],
-        #         tournament['start_at'],
-        #         tournament['end_at'],
-        #         tournament['players'],
-        #         tournament['description']
-
-        #     ))
-        #     print("-----------------------------------------------------------------------------------------")
-        # for tournament in list:
-        #     print(f"{tournament.doc_id}", end="- ")
-        #     print(f"{tournament['name']}", end=" | ")
-        #     print(f"{tournament['location']}", end=" | ")
-        #     print(f"{tournament['start_at']}", end=" | ")
-        #     print(f"{tournament['end_at']}", end=" | ")
-        #     print(f"{tournament['players']}", end=" | ")
-        #     print(f"{tournament['description']}")
         my_table = PrettyTable()
         my_table.field_names = ["Nom", "location", "Commance le ", "Fin", "Joueurs", "Description"]
         
@@ -85,6 +62,11 @@ class TournamentView:
         )
         return tournament_id
 
+    def insert_tournament_result():
+        tournament_id = int(input(
+            "Entrez le id de tornois sur lequel vous voulez voir ses jours : "
+        ))
+        
     def get_rounds_in_tournament():
         tournament_id = input(
             "Entrez le id de tournoi sur lequel vous voulez affichier les matche : "
