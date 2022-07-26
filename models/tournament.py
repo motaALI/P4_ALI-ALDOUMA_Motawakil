@@ -162,25 +162,25 @@ class Tournament:
     def create_tournament(self):
         players_per_tournament = []
         players = self.players
-        print(f"YOUR DATA : {self.players}")
+        # print(f"YOUR DATA : {self.players}")
         for p in players:
             r = player_db.get(doc_id=p)
             players_per_tournament.append(r)
         rounds = self.create_first_round()
-        tournament_db.insert(self.tournament_serializer())
+        t_id = tournament_db.insert(self.tournament_serializer())
         print(f"Your tournament created with matches : {rounds}")
         for r in rounds:
             for j in r:
                 score = float(input(f"Veuillez entrer le score de joueur {j} :"))
                 j.update({"score": score})
-        next = self.next_round(rounds)
-        for r in next:
-            for j in r:
-                score = float(input(f"Veuillez entrer le score de joueur {j} :"))
-                j.update({"score": score})
-        rounds.extend(next)
+        # next = self.next_round(rounds)
+        # for r in next:
+        #     for j in r:
+        #         score = float(input(f"Veuillez entrer le score de joueur {j} :"))
+        #         j.update({"score": score})
+        # rounds.extend(next)
         
-        return tournament_db.update({"rounds": rounds})
+        return tournament_db.update({"rounds": rounds}, doc_ids=[t_id])
 
     def get_one_tournament(id):
         tournament_db = TinyDB("DB/tournaments.json")
@@ -230,3 +230,6 @@ class Tournament:
         tournament = self.get_one_tournament()
         self.create_first_round(tournament)
         self.next_round(tournament)
+
+
+    
