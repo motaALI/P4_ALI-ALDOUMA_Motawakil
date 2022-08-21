@@ -43,9 +43,15 @@ class Controller_tournament:
         tournament.save()
 
     def showAllTournaments():
-        tournaments = Tournament.load_tournaments_db()
+        id = TournamentView.get_tournament_players()
+        tournaments = Tournament.load_tournaments_db(id)
         return TournamentView.showAllView(tournaments)
         # print('SHOW ALL TOURNAMENTS ')
+    
+    def show_tournament_players():
+        id = TournamentView.enter_id()
+        ps = Tournament.showAllTournamentPlayers(id)
+        return TournamentView.showAllTournamentPlayers(ps)
 
     def create_tournament():
         (
@@ -98,16 +104,24 @@ class Controller_tournament:
         id = TournamentView.get_tournament_players()
         return Tournament.insert_tournament_result(id)
     
+    def players_filter():
+        menu_display = {
+            "1": "Afficher tous les acteurs par ordre alphabétique",
+            "2": "Afficher tous les acteurs par classement",
+        }
+        
     def manage_tournaments():
         menu = {
             "1": "Créer un nouveau tournoi",
-            "2": "Saisir les resultats d'un tournaoi",
-            "3": "Lister les joueurs de tournoi",
+            "2": "Lister les joueurs de tournoi",
+            "3": "Saisir les resultats d'un tournoi",
             "4": "Liste des tournois",
             "5": "Modifier un tournoi",
             "6": "Afficher les round d'un tournoi",
             "R": "Reveneir à l'accueil",
         }
+        
+    
 
         Display.render_menu(menu)
         response = Display.get_user_input(menu)
@@ -116,7 +130,11 @@ class Controller_tournament:
             Controller_tournament.create_tournament()
         elif response == "2":
             print("Lister les joueurs de tornoi")
-            Controller_tournament.get_tournament_players()
+            Controller_tournament.show_tournament_players()
+        # elif response == "3":
+        #     for i in range(8):
+        #         print(f"Veuillez ajouter votre {i} jour")
+        #         Controller_tournament.add_players_to_tournaments()
         elif response == "3":
             for i in range(8):
                 print(f"Veuillez ajouter votre {i} jour")

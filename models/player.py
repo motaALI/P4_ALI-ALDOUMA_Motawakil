@@ -4,17 +4,6 @@ from tinydb import TinyDB
 
 player_db = TinyDB("DB/players.json")
 
-"""
-●	Nom de famille
-●	Prénom
-●	Date de naissance
-●	Sexe
-●	Classement
-○	Il s'agit d'un chiffre positif.
-"""
-"""
-SEND APP CODE TO GIT P1
-"""
 
 
 def valid_d_of_b(date):

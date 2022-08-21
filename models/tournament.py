@@ -1,3 +1,4 @@
+from time import sleep
 from tinydb import Query, TinyDB
 
 # from tinydb.operations import set
@@ -58,9 +59,32 @@ class Tournament:
         result = tournament_db.all()
         return result
 
+    def showAllTournamentPlayers(self):
+        players_list = []
+        p_details = []
+        # tournament_db = TinyDB("DB/tournaments.json")
+        res = tournament_db.get(doc_id=self)
+        players = res["players"]
+        for p in players:
+            r = player_db.get(doc_id=p)
+            p_details.append(r)
+            # print(f"YOUR Player : {p}")
+            # print(f"YOUR Player Type : {type(p)}")
+            # print(f"YOUR Players details : {players_details}")
+
+            if p:
+                players_list.append(p)
+        round = Round(p_details)
+        # print(f"YOUR tournament players !!!! : {round.matches}")
+        return round.matches
+
     def sort_players_by_rank(self):
         """Sort players by rank (ascending)"""
         self.players = sorted(self.players, key=lambda x: x.get("classement"))
+        
+    def sort_players_by_name(self):
+        """Sort players by name(ascending)"""
+        self.players = sorted(self.players, key=lambda x: x.get("first_name"))
 
     def get_tournament_players(self):
         tournament_players = []
@@ -73,18 +97,19 @@ class Tournament:
             for p in players:
                 r = player_db.get(doc_id=p)
                 players_details.append(r)
-                print(f"YOUR Player : {p}")
-                print(f"YOUR Player Type : {type(p)}")
-                print(f"YOUR Players details : {players_details}")
+                # print(f"YOUR Player : {p}")
+                # print(f"YOUR Player Type : {type(p)}")
+                # print(f"YOUR Players details : {players_details}")
 
                 if p:
                     tournament_players.append(p)
             round = Round(players_details)
-            print(f"YOUR tournament players : {round.matches}")
+            # print(f"YOUR tournament players : {round.matches}")
         return tournament_players
     
     def insert_tournament_result(self):
         print("Hello from ")
+        
     def get_rounds_in_tournament(self):
         tournament_db = TinyDB("DB/tournaments.json")
         res = tournament_db.get(doc_id=self)
@@ -102,7 +127,7 @@ class Tournament:
             test = player_db.get(doc_id=p)
             test.update({"id": p})
             player_dat.append(test)
-        print(f"TOTTOTOT {player_dat}")
+        # print(f"TOTTOTOT {player_dat}")
         sorted_players = sorted(
             player_dat, key=lambda player: player["classement"], reverse=True
         )
@@ -115,35 +140,101 @@ class Tournament:
             for i in m:
                 sorted_players_ids.append({"player": i.get("id")})
 
-        sorted_players_ids = list(
-            zip(sorted_players_ids[::2], sorted_players_ids[1::2])
-        )
+        # sorted_players_ids = list(
+        #     zip(sorted_players_ids[::2], sorted_players_ids[1::2])
+        # )
         print(f"Matches !!!! : {matches}")
-        return sorted_players_ids
+        return list(
+            list(zip(sorted_players_ids[::2], sorted_players_ids[1::2]))
+        )
 
     def insertRoundScore(self, players):
         # players = self.players
+        print(f"players players players players players {players}")
         next_round_list = []
-        for m in players:
-            if m[0]["score"] > m[1]["score"]:
-                next_round_list.append({"player": m[0]['player'] })
-                # print(f"The winer is : {m[0]['player']}")
-            elif m[0]["score"] < m[1]["score"] :
-                next_round_list.append({"player": m[1]['player']})
-                # print(f"The winer is : {m[1]['player']}")
-            else:
-                return f"Match Null"
+        for matche in players:
+            print(f"matche matche matche matche matche {matche}")
+            for m in matche:
+                try:
+                    if m[0]['score'] > m[1]['score']:
+                        next_round_list.append({"player": m[0]['player'] })
+                        print(f"The winer is : {m[0]['player']}")
+                    elif m[0]['score'] < m[1]['score'] :
+                        next_round_list.append({"player": m[1]['player']})
+                        print(f"The winer is : {m[1]['player']}")
+                    else:
+                        return f"Match Null"
+                except:
+                    print(f"ERORR FROM INSERT RESULT : {m}")
         return next_round_list
         
     def next_round(self, players):
         # players = self.rounds
         # list_of_next_round = []
         list_of_next_round = self.insertRoundScore(players)
+        sleep(3)
         # print("--------------------------------")
         # print(f"Your LIST OF NEXT Players: {players} ")
-        # print(f"Your LIST OF NEXT ROUND: {list_of_next_round} ")
-        return list(zip(list_of_next_round[::2], list_of_next_round[1::2]))
+        if list_of_next_round != 2:
+            return list(zip(list_of_next_round[::2], list_of_next_round[1::2]))
+        else:
+            return print(f"THE NEXT IS {list_of_next_round/2}")
 
+    def next_round_with_score(self, players):
+        sorted_players = sorted(
+            players, key=lambda player: player["score"], reverse=True
+        )
+        # index = 1
+        # while len(players):
+        #     try:
+        #         if not [players[0], players[0 + index] in sorted_players]:
+        #             sorted_players = (players[0], players[0 + index])
+        #             del players[0]
+        #             del players[0 + index]
+        #             index = 0
+        #         else :
+        #             index += 1
+        #     except KeyError:
+        #         sorted_players.append(players[0], players[0 + index - 1])
+        #         sorted_players = (players[0], players[0 + index - 1])
+        #         del players[0]
+        #         del players[0 + index - 1]
+                         
+        return list(
+            list(zip(sorted_players[::2], sorted_players[1::2]))
+        )
+        
+    def next_round_with_score_and_new_score(self, current_rounds):
+        players = []
+        new_round = []
+        for matche in current_rounds:
+            for m in matche:
+                players.append(m)
+                
+        sorted_players = sorted(
+            players, key=lambda player: player["rank"], reverse=True
+        )
+        
+        next_round = list(
+            list(zip(sorted_players[::2], sorted_players[1::2]))
+        )
+        
+        new_round = next_round
+        for matche in new_round:
+            for m in matche:
+                score = int(input(f"ENTER le score POUR CE round pour le joueur {m} :"))
+                cur_score = m.get('score')
+                # rank = cur_score + score
+                new_histo = m.get('histo_score') + [score]
+                rank = sum(new_histo)
+                n_score = {"score": score, "rank": rank, "histo_score": new_histo }
+                # n_score = {"score": new_score}
+                m.update(n_score)
+        print(f"NEXT ROUND IS : {next_round}")
+        print(f"NEW ROUND IS : {new_round}")
+                         
+        return new_round
+        
     def update_tournament(self):
         """Update tournament info (after each round) in database"""
         tournament_db = TinyDB("DB/tournaments.json")
@@ -162,25 +253,61 @@ class Tournament:
     def create_tournament(self):
         players_per_tournament = []
         players = self.players
-        # print(f"YOUR DATA : {self.players}")
         for p in players:
             r = player_db.get(doc_id=p)
             players_per_tournament.append(r)
-        rounds = self.create_first_round()
-        t_id = tournament_db.insert(self.tournament_serializer())
-        print(f"Your tournament created with matches : {rounds}")
-        for r in rounds:
-            for j in r:
-                score = float(input(f"Veuillez entrer le score de joueur {j} :"))
-                j.update({"score": score})
-        # next = self.next_round(rounds)
-        # for r in next:
-        #     for j in r:
-        #         score = float(input(f"Veuillez entrer le score de joueur {j} :"))
-        #         j.update({"score": score})
-        # rounds.extend(next)
+        tournament_id = tournament_db.insert(self.tournament_serializer())
+        d = tournament_db.get(doc_id=tournament_id)
+        rounds = d["rounds"]
         
-        return tournament_db.update({"rounds": rounds}, doc_ids=[t_id])
+        rounds.append(self.create_first_round())
+        tournament_db.update({"rounds": rounds}, doc_ids=[tournament_id])
+        # print(f"Your tournament created with matches : {rounds}")
+        sleep(3)
+        print(f"FIRST ROUND CREATED ...! {rounds}")
+        
+        for m in rounds[0]:
+            for j in m:
+                score = int(input(f"ENTER de joueur {j} :"))
+                rank = score
+                j_score = {"score": score, "rank": rank, "histo_score": [score]} 
+                # j_score = {"score": score} 
+                j.update(j_score)
+        tournament_db.update({"rounds": rounds}, doc_ids=[tournament_id])
+        sleep(3)
+        
+        #TODO REFACTO THIS FUNCTION
+        second_round = d["rounds"][0]
+        second_array = self.next_round_with_score_and_new_score(second_round)
+        rounds.append(second_array)
+        
+        # print(f"next_round_array_222222222222: {next_round_array}")
+        tournament_db.update({"rounds": rounds}, doc_ids=[tournament_id])
+        sleep(3)
+        # print(f'DEUSIEMENE ROUND CREATED ...! WITH {next_round_array}')
+        print('DEUSIEMENE ROUND FINISHED ...!')
+        
+        third_round = d["rounds"][1]    
+        third_array = self.next_round_with_score_and_new_score(third_round)
+        rounds.append(third_array)
+        
+        # print(f"next_round_array next_round_array next_round_array {semi_final_round}")
+        tournament_db.update({"rounds": rounds}, doc_ids=[tournament_id])
+        sleep(3)
+        print('TROISIEME ROUND CREATED ...!')
+        print('TROISIEME ROUND FINISHED ...!')
+         
+        fourth_round = d["rounds"][2]     
+        fourth_array = self.next_round_with_score_and_new_score(fourth_round)
+        rounds.append(fourth_array)
+        tournament_db.update({"rounds": rounds}, doc_ids=[tournament_id])
+        sleep(3)
+        print('FINAL ROUND CREATED ...!')
+        
+        print('TORNAMENT FINISHED .....!')
+        print(f"ALL ROUNDS {rounds}")
+        return rounds
+        
 
     def get_one_tournament(id):
         tournament_db = TinyDB("DB/tournaments.json")

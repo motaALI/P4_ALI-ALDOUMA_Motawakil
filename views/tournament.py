@@ -16,6 +16,21 @@ class TournamentView:
                 tournament['description']])
         print(my_table)
         
+    def showAllTournamentPlayers(players_l):
+        print(f"Il y a {players_l} jours")
+        players_table = PrettyTable()
+        players_table.field_names = ["Prènom", "Nom", "Date de naissance", "Genre", "Classement"]
+        for player in players_l:
+            players_table.add_row([
+                player["first_name"],
+                player["last_name"],
+                player["date_of_birth"],
+                player["gender"],
+                player["classement"],
+            ])
+            players_table.add_row(["------","------", "------", "------", "------"])
+        print(players_table)
+        
     def create_tournament():
         # name = input("Entrez le nom de tournois : ")
         # location = input("Entrez le lieu de tournois : ")
@@ -58,10 +73,17 @@ class TournamentView:
 
     def get_tournament_players():
         tournament_id = input(
-            "Entrez le id de tornois sur lequel vous voulez voir ses jours : "
+            "Entrez l'id de tornois sur lequel vous voulez voir ses jours : "
         )
         return tournament_id
-
+    
+    def enter_id():
+        tournament_id = input(
+            "Entrez l'id de tornois sur lequel vous voulez ajouter des jours : "
+        )
+        return tournament_id
+    
+        
     def insert_tournament_result():
         tournament_id = int(input(
             "Entrez le id de tornois sur lequel vous voulez voir ses jours : "
