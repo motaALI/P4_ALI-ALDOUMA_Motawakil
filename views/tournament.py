@@ -1,4 +1,4 @@
-from colorama import Fore
+from colorama import Fore, Style
 from prettytable import PrettyTable
 
 
@@ -63,9 +63,33 @@ class TournamentView:
 
     def showRoundsInTournament(rounds_in_tournament):
         # print(f"Il y a {rounds_in_tournament} jours")
-        # print(f"TYYYYYYYYYYYYYYYYOOOOOOOOOOOPEEEEEEEE {type(rounds_in_tournament)}")
-        rounds_table = PrettyTable()
-        rounds_table.field_names = ["Lieu", "Date debut", "Joueur"]
+        # rounds_table = PrettyTable()
+        # rounds_table.field_names = ["Joueur UN", "VS", "Joueur DEUX", "GANANT"]
+        for index, round in enumerate(rounds_in_tournament):
+            rounds_table = PrettyTable()
+            rounds_table.field_names = ["Joueur UN", "VS", "Joueur DEUX", "GANANT"]
+            print(f"{Fore.CYAN} {Style.BRIGHT} ROUND N° :  ({index + 1})")
+            for match in round:
+                winner = (
+                    match[0]["player"]
+                    if match[0]["histo_score"][index] == 1
+                    else match[1]["player"]
+                )
+                
+                rounds_table.add_row([
+                    f"Joueur {match[0]['player']}",
+                    " VS ",
+                    f"Joueur {match[1]['player']}.",
+                    f"Winner : {winner}",
+                ])
+                rounds_table.add_row(["------","------", "------", "------"])
+            print(rounds_table)
+            """
+            Clear the board to prepare it for displaying the next round
+            """
+            rounds_table.clear()
+            # print(rounds_table)
+                    
         # for round in rounds_in_tournament[0]:
         #     # print(f"ROUND ROUND {round}")
         #     # print(f"ROUND type {type(round)}")
@@ -150,7 +174,7 @@ class TournamentView:
 
     def get_rounds_in_tournament():
         tournament_id = input(
-            "Entrez le id de tournoi sur lequel vous voulez affichier les matche : "
+            "Entrez l'id 'un tournoi pour affichier tous les rounds : "
         )
         return tournament_id
 

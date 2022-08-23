@@ -116,19 +116,6 @@ class Tournament:
         if res is not None:
             rounds = res["rounds"]
             all_rounds = [r for r in rounds]
-            for index, round in enumerate(all_rounds):
-                print(f"round  {index + 1} :")
-                # print(f"all_rounds all_rounds {round}")
-                for match in round:
-                    winner = (
-                        match[0]["player"]
-                        if match[0]["histo_score"][index] == 1
-                        else match[1]["player"]
-                    )
-
-                    print(
-                        f"Joueur {match[0]['player']} VS Joueur {match[1]['player']}. Winner : {winner}"
-                    )
 
         return all_rounds
 
