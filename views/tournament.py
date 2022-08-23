@@ -39,7 +39,6 @@ class TournamentView:
         print(my_table)
 
     def showAllTournamentPlayers(players_l):
-        print(f"Il y a {players_l} jours")
         players_table = PrettyTable()
         players_table.field_names = [
             "Prènom",
@@ -62,9 +61,6 @@ class TournamentView:
         print(players_table)
 
     def showRoundsInTournament(rounds_in_tournament):
-        # print(f"Il y a {rounds_in_tournament} jours")
-        # rounds_table = PrettyTable()
-        # rounds_table.field_names = ["Joueur UN", "VS", "Joueur DEUX", "GANANT"]
         for index, round in enumerate(rounds_in_tournament):
             rounds_table = PrettyTable()
             rounds_table.field_names = ["Joueur UN", "VS", "Joueur DEUX", "GANANT"]
@@ -75,21 +71,23 @@ class TournamentView:
                     if match[0]["histo_score"][index] == 1
                     else match[1]["player"]
                 )
-                
-                rounds_table.add_row([
-                    f"Joueur {match[0]['player']}",
-                    " VS ",
-                    f"Joueur {match[1]['player']}.",
-                    f"Winner : {winner}",
-                ])
-                rounds_table.add_row(["------","------", "------", "------"])
+
+                rounds_table.add_row(
+                    [
+                        f"Joueur {match[0]['player']}",
+                        " VS ",
+                        f"Joueur {match[1]['player']}.",
+                        f"Winner : {winner}",
+                    ]
+                )
+                rounds_table.add_row(["------", "------", "------", "------"])
             print(rounds_table)
             """
             Clear the board to prepare it for displaying the next round
             """
             rounds_table.clear()
             # print(rounds_table)
-                    
+
         # for round in rounds_in_tournament[0]:
         #     # print(f"ROUND ROUND {round}")
         #     # print(f"ROUND type {type(round)}")

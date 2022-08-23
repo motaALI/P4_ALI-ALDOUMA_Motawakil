@@ -1,7 +1,7 @@
 from models.tournament import Tournament
 from view import Display
 from views.tournament import TournamentView
-from colorama import Fore
+
 
 class Round:
     def __init__(self, matches):
@@ -28,7 +28,6 @@ class Controller_tournament:
 
     def show_tournament_players():
         filter_data_as_dict = TournamentView.get_data_to_filter_with()
-        print(f"your new data : {filter_data_as_dict}")
         ps = Tournament.showAllTournamentPlayers(filter_data_as_dict)
         return TournamentView.showAllTournamentPlayers(ps)
 

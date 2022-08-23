@@ -16,7 +16,7 @@ class Controller_player:
         filter_key = PlayerView.filter_players_by_classement_or_first_name()
         players_list = Player.show_filtered_players(filter_key)
         return PlayerView.showAllView(players_list)
-        
+
     def create_player():
         (
             first_name,
@@ -29,10 +29,9 @@ class Controller_player:
         return player.create_player()
 
     def updateOnePlayer():
-        id =  PlayerView.updateOnePlayer()
+        id = PlayerView.updateOnePlayer()
         return Player.updateOnePlayer(id)
-    
-     
+
     def endView():
         print("Goodbye!")
 
@@ -47,15 +46,12 @@ class Controller_player:
         Display.render_menu(menu)
         response = Display.get_user_input(menu)
         if response == "1":
-            print("Créer un joueur")
             Controller_player.create_player()
         elif response == "2":
-            print("Liste des joueurs")
             Controller_player.show_filtered_players()
         elif response == "3":
-            print("Modifier un joueur")
             Controller_player.updateOnePlayer()
         elif response == "R":
-            print("Reveneir à l'accueil")
+            Display.render_menu(menu)
         else:
             print("Error")

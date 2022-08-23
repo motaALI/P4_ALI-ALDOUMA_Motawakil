@@ -8,7 +8,9 @@ class PlayerView:
     def filter_players_by_classement_or_first_name():
         filter_key = ""
         filter_with = int(
-            input(" 1 : Pour trier par l'ordre alphabétique\n 2 : trier par classement ")
+            input(
+                " 1 : Pour trier par l'ordre alphabétique\n 2 : trier par classement "
+            )
         )
         if filter_with == 1:
             filter_key = "first_name"
@@ -17,7 +19,7 @@ class PlayerView:
         else:
             print("Error !!!!!")
         return filter_key
-        
+
     def showAllView(list):
         print()
         print(f"Il y a {len(list)} jours")
@@ -72,11 +74,8 @@ class PlayerView:
         return first_name, last_name, date_of_birth, gender, classement
 
     def updateOnePlayer():
-        player_id = input(
-            "Entrez l'id de joueur à modifier : "
-        )
+        player_id = input("Entrez l'id de joueur à modifier : ")
         return player_id
-    
-    
+
     def startView():
         print("Binevenu sur l'application Chess tournament")

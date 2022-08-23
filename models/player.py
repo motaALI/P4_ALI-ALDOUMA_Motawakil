@@ -68,11 +68,11 @@ class Player:
             players.append(item)
 
         return players
-    
+
     def updateOnePlayer(self):
         player = player_db.get(doc_id=self)
         print(f"Player à Modifier : {player}")
-        
+
     def show_filtered_players(self):
         is_reverse = True if self == "classement" else False
         res = player_db.all()

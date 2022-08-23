@@ -20,10 +20,8 @@ class Controller:
 
         if response == "1":
             Controller_player.manage_players()
-            print("Choix 1")
         elif response == "2":
             Controller_tournament.manage_tournaments()
-            print("Choix 2")
         elif response == "3":
             # self.matche_controller()
             print("Choix 3")
