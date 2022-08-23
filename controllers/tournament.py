@@ -12,28 +12,6 @@ class Controller_tournament:
     def __init__(self):
         self.display = Display
 
-    # def create_first_round(tournament):
-    #     players = tournament["players"]
-    #     sorted(players, key=lambda player: player["score_tournament"])
-    #     player_round = [
-    #         (players[i], players[i + 4], [0, 0]) for i in range(0, len(players), 2)
-    #     ]
-    #     tournament.matches = [
-    #         [players[i], players[i + 4]] for i in range(0, len(players), 2)
-    #     ]
-    #     round = Round(player_round)
-    #     print("ROUNDDDD :", round)
-
-    # def next_round(tournament):
-    #     players = tournament["players"]
-    #     sorted(players, key=lambda player: player["score_tournament"])
-    #     matches = []
-    #     for index, player in enumerate(players):
-    #         if not [player, players[index + 1]] in tournament.matches:
-    #             matches[player, players[index + 1]]
-    #             tournament.matches = [player, players[index + 1]]
-    #             continue
-
     def set_results(round):
         for index, match in enumerate(round):
             print("match", index + 1)
@@ -43,15 +21,21 @@ class Controller_tournament:
         tournament.save()
 
     def showAllTournaments():
-        id = TournamentView.get_tournament_players()
-        tournaments = Tournament.load_tournaments_db(id)
+        # id = TournamentView.get_tournament_players()
+        tournaments = Tournament.load_tournaments_db()
         return TournamentView.showAllView(tournaments)
         # print('SHOW ALL TOURNAMENTS ')
-    
+
     def show_tournament_players():
-        id = TournamentView.enter_id()
-        ps = Tournament.showAllTournamentPlayers(id)
+        filter_data_as_dict = TournamentView.enter_id()
+        print(f"your new data : {filter_data_as_dict}")
+        ps = Tournament.showAllTournamentPlayers(filter_data_as_dict)
         return TournamentView.showAllTournamentPlayers(ps)
+
+    def get_rounds_in_tournaments():
+        id = TournamentView.get_rounds_in_tournament()
+        rounds_in_tournament = Tournament.get_rounds_in_tournament(id)
+        return TournamentView.showRoundsInTournament(rounds_in_tournament)
 
     def create_tournament():
         (
@@ -92,24 +76,20 @@ class Controller_tournament:
     Display rounds in the tournament
     """
 
-    def get_rounds_in_tournaments():
-        id = TournamentView.get_rounds_in_tournament()
-        return Tournament.get_one_tournament(id)
-
     def get_tournament_players():
         id = TournamentView.get_tournament_players()
         return Tournament.get_tournament_players(id)
-    
+
     def insert_tournament_result():
         id = TournamentView.get_tournament_players()
         return Tournament.insert_tournament_result(id)
-    
-    def players_filter():
-        menu_display = {
-            "1": "Afficher tous les acteurs par ordre alphabétique",
-            "2": "Afficher tous les acteurs par classement",
-        }
-        
+
+    # def players_filter():
+    #     menu_display = {
+    #         "1": "Afficher tous les acteurs par ordre alphabétique",
+    #         "2": "Afficher tous les acteurs par classement",
+    #     }
+
     def manage_tournaments():
         menu = {
             "1": "Créer un nouveau tournoi",
@@ -120,8 +100,6 @@ class Controller_tournament:
             "6": "Afficher les round d'un tournoi",
             "R": "Reveneir à l'accueil",
         }
-        
-    
 
         Display.render_menu(menu)
         response = Display.get_user_input(menu)

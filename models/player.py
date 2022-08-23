@@ -5,7 +5,6 @@ from tinydb import TinyDB
 player_db = TinyDB("DB/players.json")
 
 
-
 def valid_d_of_b(date):
     try:
         datetime.strftime(date, "%d/%m/%Y")

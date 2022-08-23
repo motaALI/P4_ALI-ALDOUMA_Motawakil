@@ -1,4 +1,3 @@
-
 from datetime import datetime
 
 from colorama import Fore
@@ -13,10 +12,10 @@ class Validators:
             print("This is the correct date string format.")
         except ValueError:
             print("This is the incorrect date string format. It should be DD/MM/YYYY")
-    
+
     def is_dob_valide(date_text):
         try:
-            datetime.strptime(date_text, '%d/%m/%Y')
+            datetime.strptime(date_text, "%d/%m/%Y")
         except ValueError:
             print("This is the incorrect date string format. It should be DD/MM/YYYY")
             raise ValueError("Incorrect data format, should be YYYY-MM-DD")
@@ -31,11 +30,10 @@ class Validators:
         except ValueError:
             print(f"{Fore.RED} + {stie} ne doit pas être vide")
             raise ValueError(f"{stie} ne doit pas être vide")
-        
 
     def is_valide_input_gender(gender: str):
         try:
-            if gender.upper() in ("F", "M","O"):
+            if gender.upper() in ("F", "M", "O"):
                 print(Fore.RED + "le genre doit être entre 'F', 'M' ou 'O")
                 return True
             else:
@@ -55,4 +53,3 @@ class Validators:
                 return True
         except ValueError:
             raise ValueError(f"{classement} ne doit pas être vide")
-        
