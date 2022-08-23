@@ -27,7 +27,7 @@ class Controller_tournament:
         # print('SHOW ALL TOURNAMENTS ')
 
     def show_tournament_players():
-        filter_data_as_dict = TournamentView.enter_id()
+        filter_data_as_dict = TournamentView.get_data_to_filter_with()
         print(f"your new data : {filter_data_as_dict}")
         ps = Tournament.showAllTournamentPlayers(filter_data_as_dict)
         return TournamentView.showAllTournamentPlayers(ps)

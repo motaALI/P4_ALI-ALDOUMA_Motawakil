@@ -12,6 +12,11 @@ class Controller_player:
         players = Player.load_player_db()
         return PlayerView.showAllView(players)
 
+    def show_filtered_players():
+        filter_key = PlayerView.filter_players_by_classement_or_first_name()
+        players_list = Player.show_filtered_players(filter_key)
+        return PlayerView.showAllView(players_list)
+        
     def create_player():
         (
             first_name,
@@ -23,6 +28,11 @@ class Controller_player:
         player = Player(first_name, last_name, gender, date_of_birth, classement)
         return player.create_player()
 
+    def updateOnePlayer():
+        id =  PlayerView.updateOnePlayer()
+        return Player.updateOnePlayer(id)
+    
+     
     def endView():
         print("Goodbye!")
 
@@ -41,9 +51,10 @@ class Controller_player:
             Controller_player.create_player()
         elif response == "2":
             print("Liste des joueurs")
-            Controller_player.showAll()
+            Controller_player.show_filtered_players()
         elif response == "3":
             print("Modifier un joueur")
+            Controller_player.updateOnePlayer()
         elif response == "R":
             print("Reveneir à l'accueil")
         else:

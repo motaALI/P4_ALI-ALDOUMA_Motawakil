@@ -40,7 +40,7 @@ class Player:
     def __str__(self):
         return f"Nom : {self.first_name} Prènom : {self.last_name}"
 
-    def plyer_full_infos(self):
+    def player_full_infos(self):
         return f"last_name:{self.last_name} \
                 first_name:{self.first_name} \
                 date_of_birth:{self.date_of_birth}\
@@ -68,3 +68,13 @@ class Player:
             players.append(item)
 
         return players
+    
+    def updateOnePlayer(self):
+        player = player_db.get(doc_id=self)
+        print(f"Player à Modifier : {player}")
+        
+    def show_filtered_players(self):
+        is_reverse = True if self == "classement" else False
+        res = player_db.all()
+        players_list = sorted(res, key=lambda p: p[self], reverse=is_reverse)
+        return players_list

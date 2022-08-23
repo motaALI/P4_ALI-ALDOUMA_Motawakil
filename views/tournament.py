@@ -1,17 +1,18 @@
+from colorama import Fore
 from prettytable import PrettyTable
 
 
 class TournamentView:
     def showAllView(list):
-        print(f"Il y a {len(list)} tournois")
+        print(f"{Fore.BLUE}Il y a {Fore.GREEN}{len(list)} {Fore.BLUE}tournois")
         my_table = PrettyTable()
         my_table.field_names = [
-            "Nom",
-            "location",
-            "Date début ",
-            "Date fin",
-            "Joueurs",
-            "Description",
+            f"{Fore.MAGENTA}Nom",
+            f"{Fore.MAGENTA}location",
+            f"{Fore.MAGENTA}Date début ",
+            f"{Fore.MAGENTA}Date fin",
+            f"{Fore.MAGENTA}Joueurs",
+            f"{Fore.MAGENTA}Description",
         ]
 
         for tournament in list:
@@ -23,6 +24,16 @@ class TournamentView:
                     tournament["end_at"],
                     tournament["players"],
                     tournament["description"],
+                ]
+            )
+            my_table.add_row(
+                [
+                    f"{Fore.MAGENTA}---------------",
+                    f"{Fore.MAGENTA}---------------",
+                    f"{Fore.MAGENTA}---------------",
+                    f"{Fore.MAGENTA}---------------",
+                    f"{Fore.MAGENTA}---------------",
+                    f"{Fore.MAGENTA}---------------",
                 ]
             )
         print(my_table)
@@ -113,7 +124,7 @@ class TournamentView:
         )
         return tournament_id
 
-    def enter_id():
+    def get_data_to_filter_with():
         filter_data_as_dict = {}
         filter_with = int(
             input(" 1 :Pour trier par l'ordre alphabétique\n 2 : trier par classement ")
