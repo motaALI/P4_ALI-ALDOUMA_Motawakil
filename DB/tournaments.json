@@ -1,8 +1,8 @@
 {
     "_default": {
         "1": {
-            "name": "Test 06",
-            "location": "Nantes",
+            "name": "TOURNOI MODIFIE POUR LE TEST",
+            "location": "KHARTOUM",
             "start_at": "30/06/2022",
             "end_at": "30/06/2022",
             "time_control": 10,
@@ -412,7 +412,7 @@
                 ]
             ],
             "round_total": 4,
-            "description": "la description"
+            "description": "TOURNOI DE KHARTOULM A ETE MODIFIE"
         },
         "2": {
             "name": "Test 06",

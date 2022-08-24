@@ -1,7 +1,6 @@
 from models.tournament import Tournament
 from view import Display
 from views.tournament import TournamentView
-from colorama import Fore
 
 
 class Round:
@@ -63,7 +62,12 @@ class Controller_tournament:
         return tournament.create_tournament()
 
     def update_tournament():
-        print("TOURNAMENT UPDATED !")
+        tournament_new_data_update = {}
+        id = TournamentView.updateOneTournamen()
+        tournament_as_dict = TournamentView.tournament_new_data()
+        tournament_new_data_update.update({"id": id})
+        tournament_new_data_update.update(tournament_as_dict)
+        return Tournament.updateOneTournamen(tournament_new_data_update)
 
     def add_players_to_tournament():
         print("Players ADDED To Tournaments")
@@ -124,7 +128,6 @@ class Controller_tournament:
             Controller_tournament.get_rounds_in_tournaments()
         elif response == "R":
             print("Reveneir à l'accueil")
+            print("\n")
         else:
-            error = Display.ShowError()
-            print(f"{error} : {menu}")
-        
+            print("-")

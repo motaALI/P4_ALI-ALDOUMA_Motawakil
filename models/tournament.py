@@ -117,28 +117,19 @@ class Tournament:
         players = self.players
         matches = []
         player_dat = []
-        # player_data = [player_db.get(doc_id=p) for p in players]
         for p in players:
             test = player_db.get(doc_id=p)
             test.update({"id": p})
             player_dat.append(test)
-        # print(f"TOTTOTOT {player_dat}")
         sorted_players = sorted(
             player_dat, key=lambda player: player["classement"], reverse=True
         )
-        # matches_with_players_details = list(
-        #     zip(sorted_players[::2], sorted_players[1::2])
-        # )
         matches = list(zip(sorted_players[::2], sorted_players[1::2]))
         sorted_players_ids = []
         for m in matches:
             for i in m:
                 sorted_players_ids.append({"player": i.get("id")})
 
-        # sorted_players_ids = list(
-        #     zip(sorted_players_ids[::2], sorted_players_ids[1::2])
-        # )
-        print(f"Matches !!!! : {matches}")
         return list(list(zip(sorted_players_ids[::2], sorted_players_ids[1::2])))
 
     def insertRoundScore(self, players):
@@ -162,12 +153,8 @@ class Tournament:
         return next_round_list
 
     def next_round(self, players):
-        # players = self.rounds
-        # list_of_next_round = []
         list_of_next_round = self.insertRoundScore(players)
         sleep(3)
-        # print("--------------------------------")
-        # print(f"Your LIST OF NEXT Players: {players} ")
         if list_of_next_round != 2:
             return list(zip(list_of_next_round[::2], list_of_next_round[1::2]))
         else:
@@ -177,21 +164,6 @@ class Tournament:
         sorted_players = sorted(
             players, key=lambda player: player["score"], reverse=True
         )
-        # index = 1
-        # while len(players):
-        #     try:
-        #         if not [players[0], players[0 + index] in sorted_players]:
-        #             sorted_players = (players[0], players[0 + index])
-        #             del players[0]
-        #             del players[0 + index]
-        #             index = 0
-        #         else :
-        #             index += 1
-        #     except KeyError:
-        #         sorted_players.append(players[0], players[0 + index - 1])
-        #         sorted_players = (players[0], players[0 + index - 1])
-        #         del players[0]
-        #         del players[0 + index - 1]
 
         return list(list(zip(sorted_players[::2], sorted_players[1::2])))
 
@@ -212,12 +184,9 @@ class Tournament:
         for matche in new_round:
             for m in matche:
                 score = int(input(f"ENTER le score POUR CE round pour le joueur {m} :"))
-                # cur_score = m.get("score")
-                # rank = cur_score + score
                 new_histo = m.get("histo_score") + [score]
                 rank = sum(new_histo)
                 n_score = {"score": score, "rank": rank, "histo_score": new_histo}
-                # n_score = {"score": new_score}
                 m.update(n_score)
         print(f"NEXT ROUND IS : {next_round}")
         print(f"NEW ROUND IS : {new_round}")
@@ -236,7 +205,6 @@ class Tournament:
             print("match", index + 1)
             print(match[0], "VS", match[1])
         tournament = Tournament
-        # tournament.next_round()
         tournament.update_tournament()
 
     def create_tournament(self):
@@ -251,7 +219,6 @@ class Tournament:
 
         rounds.append(self.create_first_round())
         tournament_db.update({"rounds": rounds}, doc_ids=[tournament_id])
-        # print(f"Your tournament created with matches : {rounds}")
         sleep(3)
         print(f"FIRST ROUND CREATED ...! {rounds}")
 
@@ -269,18 +236,14 @@ class Tournament:
         second_round = d["rounds"][0]
         second_array = self.next_round_with_score_and_new_score(second_round)
         rounds.append(second_array)
-
-        # print(f"next_round_array_222222222222: {next_round_array}")
         tournament_db.update({"rounds": rounds}, doc_ids=[tournament_id])
         sleep(3)
-        # print(f'DEUSIEMENE ROUND CREATED ...! WITH {next_round_array}')
         print("DEUSIEMENE ROUND FINISHED ...!")
 
         third_round = d["rounds"][1]
         third_array = self.next_round_with_score_and_new_score(third_round)
         rounds.append(third_array)
 
-        # print(f"next_round_array next_round_array next_round_array {semi_final_round}")
         tournament_db.update({"rounds": rounds}, doc_ids=[tournament_id])
         sleep(3)
         print("TROISIEME ROUND CREATED ...!")
@@ -297,18 +260,31 @@ class Tournament:
         print(f"ALL ROUNDS {rounds}")
         return rounds
 
+    def updateOneTournamen(self):
+        id = int(self.get("id"))
+        tournament = tournament_db.get(doc_id=id)
+        if tournament is None:
+            print(f"Il n'a y aucun tournoi avec l'id {id}")
+        else:
+            name = self.get("name")
+            location = self.get("location")
+            description = self.get("description")
+            updated_tournament = tournament_db.update(
+                {"name": name, "location": location, "description": description},
+                doc_ids=[id],
+            )
+            return updated_tournament
+
     def get_one_tournament(id):
         tournamente_data = []
         tournament_db = TinyDB("DB/tournaments.json")
         res = tournament_db.get(doc_id=id)
         if res is not None:
-            # print(f"YOUR TOURNAMENT IS : {res}")
             for t_d in res.values():
                 print(f"TDDDDDDDDDDDDDDD {t_d}")
                 tournamente_data.append(t_d)
             return tournamente_data
         else:
-            # print(f"IL N'A Y PAS UN TOURNOI POUR L'ID {id}")
             return False
 
     def insert_multi_players(**players):

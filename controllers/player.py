@@ -17,7 +17,6 @@ class Controller_player:
         players_list = Player.show_sorted_players(sort_key)
         if players_list:
             return PlayerView.showAllView(players_list, sort_key)
-        
 
     def create_player():
         (
@@ -33,7 +32,7 @@ class Controller_player:
     def updateOnePlayer():
         player_new_data_update = {}
         id = PlayerView.updateOnePlayer()
-        classement= PlayerView.player_new_data()
+        classement = PlayerView.player_new_data()
         player_new_data_update.update({"id": id, "classement": classement})
         return Player.updateOnePlayer(player_new_data_update)
 
@@ -59,4 +58,4 @@ class Controller_player:
         elif response == "R":
             Display.render_menu(menu)
         else:
-            print("Error")
+            print("-")

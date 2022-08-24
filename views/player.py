@@ -9,7 +9,7 @@ class PlayerView:
         sort_key = ""
         sort_with = int(
             input(
-                " 1 : Pour trier par l'ordre alphabétique\n 2 : trier par classement\n "
+                " 1 : Pour trier par l'ordre alphabétique\n 2 : pour trier par classement\n "
             )
         )
         if sort_with == 1:
@@ -79,12 +79,9 @@ class PlayerView:
     def updateOnePlayer():
         player_id = input("Entrez l'id de joueur à modifier : ")
         return player_id
-    
+
     def player_new_data():
         classement = int(input("Entrez le Classemnt ? "))
         while Validators.is_valide_classement(classement) is False:
             classement = int(input(f"{Fore.CYAN} Entrez le Classemnt ? "))
         return classement
-    
-    # def startView():
-    #     print("Binevenu sur l'application Chess tournament")

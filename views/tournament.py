@@ -159,6 +159,25 @@ class TournamentView:
 
         return sort_data_as_dict
 
+    def updateOneTournamen():
+        tournament_id = input("Entrez l'id de tournoi à modifier : ")
+        return tournament_id
+
+    """
+    Get data to update tournamnt
+    """
+
+    def tournament_new_data():
+        tournament_new_data_update = {}
+        name = input("Entrez le nom de tournois : ")
+        location = input("Entrez le lieu de tournois : ")
+        description = input("Entrez la description : ")
+        tournament_new_data_update.update(
+            {"name": name, "location": location, "description": description}
+        )
+
+        return tournament_new_data_update
+
     def insert_tournament_result():
         tournament_id = int(
             input("Entrez le id de tornois sur lequel vous voulez voir ses jours : ")

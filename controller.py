@@ -29,4 +29,4 @@ class Controller:
             Display.endView()
             return False
         else:
-            Display.ShowError()
+            print(f"!!!!!!! {Display.ShowError()} !!!!!")
