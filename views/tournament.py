@@ -68,7 +68,7 @@ class TournamentView:
         for index, round in enumerate(rounds_in_tournament):
             rounds_table = PrettyTable()
             rounds_table.field_names = ["Joueur UN", "Contre", "Joueur DEUX", "GANANT"]
-            print(f"{Fore.CYAN} {Style.BRIGHT} ROUND N° :  ({index + 1})")
+            print(f"\n{Fore.CYAN} ROUND N° :  ({index + 1})")
             for match in round:
                 winner = (
                     match[0]["player"]
@@ -87,6 +87,7 @@ class TournamentView:
 
                 rounds_table.add_row(["------", "------", "------", "------"])
             print(rounds_table)
+            print(Style.RESET_ALL, end="")
             """
             Clear the board to prepare it for displaying the next round
             """
@@ -138,25 +139,25 @@ class TournamentView:
         )
         return tournament_id
 
-    def get_data_to_filter_with():
-        filter_data_as_dict = {}
-        filter_with = int(
+    def get_data_to_sort_with():
+        sort_data_as_dict = {}
+        sort_with = int(
             input(
                 " 1 :Pour trier par l'ordre alphabétique\n 2 : trier par classement\n "
             )
         )
-        if filter_with == 1:
-            filter_data_as_dict.update({"filter_with": "first_name"})
-        elif filter_with == 2:
-            filter_data_as_dict.update({"filter_with": "classement"})
+        if sort_with == 1:
+            sort_data_as_dict.update({"sort_with": "first_name"})
+        elif sort_with == 2:
+            sort_data_as_dict.update({"sort_with": "classement"})
         else:
             print("Error !!!!!")
         tournament_id = input(
             "Entrez l'id de tornois sur lequel vous voulez ajouter des jours : \n"
         )
-        filter_data_as_dict.update({"tournament_id": tournament_id})
+        sort_data_as_dict.update({"tournament_id": tournament_id})
 
-        return filter_data_as_dict
+        return sort_data_as_dict
 
     def insert_tournament_result():
         tournament_id = int(

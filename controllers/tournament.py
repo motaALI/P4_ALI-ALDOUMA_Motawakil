@@ -21,14 +21,12 @@ class Controller_tournament:
         tournament.save()
 
     def showAllTournaments():
-        # id = TournamentView.get_tournament_players()
         tournaments = Tournament.load_tournaments_db()
         return TournamentView.showAllView(tournaments)
-        # print('SHOW ALL TOURNAMENTS ')
 
     def show_tournament_players():
-        filter_data_as_dict = TournamentView.get_data_to_filter_with()
-        ps = Tournament.showAllTournamentPlayers(filter_data_as_dict)
+        sort_data_as_dict = TournamentView.get_data_to_sort_with()
+        ps = Tournament.showAllTournamentPlayers(sort_data_as_dict)
         return TournamentView.showAllTournamentPlayers(ps)
 
     def get_rounds_in_tournaments():

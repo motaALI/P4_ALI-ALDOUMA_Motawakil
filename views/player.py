@@ -5,25 +5,30 @@ from validation import Validators
 
 
 class PlayerView:
-    def filter_players_by_classement_or_first_name():
-        filter_key = ""
-        filter_with = int(
+    def sort_players_by_classement_or_first_name():
+        sort_key = ""
+        sort_with = int(
             input(
-                " 1 : Pour trier par l'ordre alphabétique\n 2 : trier par classement "
+                " 1 : Pour trier par l'ordre alphabétique\n 2 : trier par classement\n "
             )
         )
-        if filter_with == 1:
-            filter_key = "first_name"
-        elif filter_with == 2:
-            filter_key = "classement"
+        if sort_with == 1:
+            sort_key = "first_name"
+        elif sort_with == 2:
+            sort_key = "classement"
         else:
             print("Error !!!!!")
-        return filter_key
+        return sort_key
 
-    def showAllView(list):
-        print()
-        print(f"Il y a {len(list)} jours")
-        print()
+    def showAllView(list, sort_key):
+        """
+        Customizing sort key to display french equivalent in the message
+        """
+        custom_key = "Prènom" if sort_key == "first_name" else sort_key
+        print(
+            f"\n{Fore.LIGHTBLUE_EX} Il y a ({len(list)}) joueurs dans votre données triés par {custom_key}\n"
+        )
+
         players_table = PrettyTable()
         players_table.field_names = [
             "Prènom",
@@ -44,11 +49,11 @@ class PlayerView:
             )
             players_table.add_row(
                 [
-                    f"{Fore.CYAN}------",
-                    f"{Fore.CYAN}------",
-                    f"{Fore.CYAN}------",
-                    f"{Fore.CYAN}------",
-                    f"{Fore.CYAN}------",
+                    f"{Fore.LIGHTBLUE_EX}------",
+                    f"{Fore.LIGHTBLUE_EX}------",
+                    f"{Fore.LIGHTBLUE_EX}------",
+                    f"{Fore.LIGHTBLUE_EX}------",
+                    f"{Fore.LIGHTBLUE_EX}------",
                 ]
             )
         print(players_table)

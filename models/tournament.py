@@ -64,7 +64,7 @@ class Tournament:
         p_details = []
         # tournament_db = TinyDB("DB/tournaments.json")
         id = self.get("tournament_id")
-        filter_with = self.get("filter_with")
+        sort_with = self.get("sort_with")
         res = tournament_db.get(doc_id=id)
         players = res["players"]
         for p in players:
@@ -74,7 +74,7 @@ class Tournament:
             if p:
                 players_list.append(p)
         round = Round(p_details)
-        pls = sorted(round.matches, key=lambda p: p[filter_with])
+        pls = sorted(round.matches, key=lambda p: p[sort_with])
         return pls
 
     def sort_players_by_rank(self):

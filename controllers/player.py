@@ -12,10 +12,10 @@ class Controller_player:
         players = Player.load_player_db()
         return PlayerView.showAllView(players)
 
-    def show_filtered_players():
-        filter_key = PlayerView.filter_players_by_classement_or_first_name()
-        players_list = Player.show_filtered_players(filter_key)
-        return PlayerView.showAllView(players_list)
+    def show_sorted_players():
+        sort_key = PlayerView.sort_players_by_classement_or_first_name()
+        players_list = Player.show_sorted_players(sort_key)
+        return PlayerView.showAllView(players_list, sort_key)
 
     def create_player():
         (
@@ -48,7 +48,7 @@ class Controller_player:
         if response == "1":
             Controller_player.create_player()
         elif response == "2":
-            Controller_player.show_filtered_players()
+            Controller_player.show_sorted_players()
         elif response == "3":
             Controller_player.updateOnePlayer()
         elif response == "R":

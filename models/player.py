@@ -71,16 +71,16 @@ class Player:
 
     def updateOnePlayer(self):
         player = player_db.get(doc_id=self)
-        print(f"Player à Modifier : {player}")
+        if player is None:
+            print(f"Il y aucun joueur avec l'id {self}")
+        else:
+            print(f"Player à Modifier : {player}")
 
     def showPlayerName(id):
         player = player_db.get(doc_id=id)
-        # print(f"Player à Affichier son nom : {player}")
-        # print(f"Player à Affichier son nom : {player.get('last_name')}")
-        # print(player.get('last_name'))
         return player.get("last_name")
 
-    def show_filtered_players(self):
+    def show_sorted_players(self):
         is_reverse = True if self == "classement" else False
         res = player_db.all()
         players_list = sorted(res, key=lambda p: p[self], reverse=is_reverse)
