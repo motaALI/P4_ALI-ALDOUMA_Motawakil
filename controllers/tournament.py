@@ -96,7 +96,7 @@ class Controller_tournament:
             "3": "Saisir les resultats d'un tournoi",
             "4": "Liste des tournois",
             "5": "Modifier un tournoi",
-            "6": "Afficher les round d'un tournoi",
+            "6": "Afficher les rounds d'un tournoi",
             "R": "Reveneir à l'accueil",
         }
 

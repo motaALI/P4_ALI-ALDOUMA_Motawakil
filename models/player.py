@@ -73,6 +73,13 @@ class Player:
         player = player_db.get(doc_id=self)
         print(f"Player à Modifier : {player}")
 
+    def showPlayerName(id):
+        player = player_db.get(doc_id=id)
+        # print(f"Player à Affichier son nom : {player}")
+        # print(f"Player à Affichier son nom : {player.get('last_name')}")
+        # print(player.get('last_name'))
+        return player.get("last_name")
+
     def show_filtered_players(self):
         is_reverse = True if self == "classement" else False
         res = player_db.all()

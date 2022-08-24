@@ -1,8 +1,12 @@
 from colorama import Fore, Style
 from prettytable import PrettyTable
+from models.player import Player
 
 
 class TournamentView:
+    def __init__(self) -> None:
+        return self
+
     def showAllView(list):
         print(f"{Fore.BLUE}Il y a {Fore.GREEN}{len(list)} {Fore.BLUE}tournois")
         my_table = PrettyTable()
@@ -63,7 +67,7 @@ class TournamentView:
     def showRoundsInTournament(rounds_in_tournament):
         for index, round in enumerate(rounds_in_tournament):
             rounds_table = PrettyTable()
-            rounds_table.field_names = ["Joueur UN", "VS", "Joueur DEUX", "GANANT"]
+            rounds_table.field_names = ["Joueur UN", "Contre", "Joueur DEUX", "GANANT"]
             print(f"{Fore.CYAN} {Style.BRIGHT} ROUND N° :  ({index + 1})")
             for match in round:
                 winner = (
@@ -71,34 +75,22 @@ class TournamentView:
                     if match[0]["histo_score"][index] == 1
                     else match[1]["player"]
                 )
-
+                # print(f"Joueur {Player.showPlayerName(int(match[0]['player']))}")
                 rounds_table.add_row(
                     [
-                        f"Joueur {match[0]['player']}",
-                        " VS ",
-                        f"Joueur {match[1]['player']}.",
-                        f"Winner : {winner}",
+                        Player.showPlayerName(int(match[0]["player"])),
+                        " X ",
+                        Player.showPlayerName(int(match[1]["player"])),
+                        Player.showPlayerName(int((winner))),
                     ]
-                )
+                ),
+
                 rounds_table.add_row(["------", "------", "------", "------"])
             print(rounds_table)
             """
             Clear the board to prepare it for displaying the next round
             """
             rounds_table.clear()
-            # print(rounds_table)
-
-        # for round in rounds_in_tournament[0]:
-        #     # print(f"ROUND ROUND {round}")
-        #     # print(f"ROUND type {type(round)}")
-        #     print(f"ROUND ROUND {round}")
-        #     rounds_table.add_row([
-        #         # round["score"],
-        #         # round["histo_score"],
-        #         # round["rank"],
-        #     ])
-        #     rounds_table.add_row(["------","------", "------", "------", "------"])
-        # print(rounds_table)
 
     def create_tournament():
         # name = input("Entrez le nom de tournois : ")
@@ -149,7 +141,9 @@ class TournamentView:
     def get_data_to_filter_with():
         filter_data_as_dict = {}
         filter_with = int(
-            input(" 1 :Pour trier par l'ordre alphabétique\n 2 : trier par classement ")
+            input(
+                " 1 :Pour trier par l'ordre alphabétique\n 2 : trier par classement\n "
+            )
         )
         if filter_with == 1:
             filter_data_as_dict.update({"filter_with": "first_name"})
@@ -158,7 +152,7 @@ class TournamentView:
         else:
             print("Error !!!!!")
         tournament_id = input(
-            "Entrez l'id de tornois sur lequel vous voulez ajouter des jours : "
+            "Entrez l'id de tornois sur lequel vous voulez ajouter des jours : \n"
         )
         filter_data_as_dict.update({"tournament_id": tournament_id})
 

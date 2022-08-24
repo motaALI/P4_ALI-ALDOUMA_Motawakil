@@ -2,7 +2,6 @@ from time import sleep
 
 from tinydb import Query, TinyDB
 
-# from tinydb.operations import set
 from models.player import Player
 
 player_db = TinyDB("DB/players.json")
@@ -97,14 +96,9 @@ class Tournament:
             for p in players:
                 r = player_db.get(doc_id=p)
                 players_details.append(r)
-                # print(f"YOUR Player : {p}")
-                # print(f"YOUR Player Type : {type(p)}")
-                # print(f"YOUR Players details : {players_details}")
 
                 if p:
                     tournament_players.append(p)
-            # round = Round(players_details)
-            # print(f"YOUR tournament players : {round.matches}")
         return tournament_players
 
     def insert_tournament_result(self):
