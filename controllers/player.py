@@ -15,7 +15,9 @@ class Controller_player:
     def show_sorted_players():
         sort_key = PlayerView.sort_players_by_classement_or_first_name()
         players_list = Player.show_sorted_players(sort_key)
-        return PlayerView.showAllView(players_list, sort_key)
+        if players_list:
+            return PlayerView.showAllView(players_list, sort_key)
+        
 
     def create_player():
         (
@@ -35,8 +37,8 @@ class Controller_player:
         player_new_data_update.update({"id": id, "classement": classement})
         return Player.updateOnePlayer(player_new_data_update)
 
-    def endView():
-        print("Goodbye!")
+    # def endView():
+    #     print("Goodbye!")
 
     def manage_players():
         menu = {

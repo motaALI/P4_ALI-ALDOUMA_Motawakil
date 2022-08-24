@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from colorama import Fore
 from tinydb import TinyDB
 
 player_db = TinyDB("DB/players.json")
@@ -88,7 +88,13 @@ class Player:
         return player.get("last_name")
 
     def show_sorted_players(self):
-        is_reverse = True if self == "classement" else False
-        res = player_db.all()
-        players_list = sorted(res, key=lambda p: p[self], reverse=is_reverse)
-        return players_list
+        sort_keys = ["classement", "first_name"]
+        if self in sort_keys:
+            is_reverse = True if self == "classement" else False
+            res = player_db.all()
+            players_list = sorted(res, key=lambda p: p[self], reverse=is_reverse)
+            return players_list
+        else:
+            players_list = []
+            print(f"{Fore.RED} Tri possible uniquement par classement ou l'ordre alphabétique")
+            

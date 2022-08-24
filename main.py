@@ -2,5 +2,6 @@ from controller import Controller
 from view import Display
 
 if __name__ == "__main__":
-    print("Bienvenu Sur le gestionaire de écheque :")
-    Controller.accueil(Display)
+    print("Bienvenue sur le gestionnaire d'échecs")
+    while Controller.accueil(Display) is not False:
+        Controller.accueil(Display)

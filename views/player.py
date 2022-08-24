@@ -16,9 +16,6 @@ class PlayerView:
             sort_key = "first_name"
         elif sort_with == 2:
             sort_key = "classement"
-        else:
-            #TODO use validators
-            print("Error !!!!!")
         return sort_key
 
     def showAllView(list, sort_key):
@@ -89,5 +86,5 @@ class PlayerView:
             classement = int(input(f"{Fore.CYAN} Entrez le Classemnt ? "))
         return classement
     
-    def startView():
-        print("Binevenu sur l'application Chess tournament")
+    # def startView():
+    #     print("Binevenu sur l'application Chess tournament")

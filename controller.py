@@ -25,6 +25,8 @@ class Controller:
         elif response == "3":
             # self.matche_controller()
             print("Choix 3")
-        else:
+        elif response in ["q", "Q"]:
             Display.endView()
-            print("Quitter")
+            return False
+        else:
+            Display.ShowError()

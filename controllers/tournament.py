@@ -1,6 +1,7 @@
 from models.tournament import Tournament
 from view import Display
 from views.tournament import TournamentView
+from colorama import Fore
 
 
 class Round:
@@ -124,4 +125,6 @@ class Controller_tournament:
         elif response == "R":
             print("Reveneir à l'accueil")
         else:
-            print("Error")
+            error = Display.ShowError()
+            print(f"{error} : {menu}")
+        
