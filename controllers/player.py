@@ -29,8 +29,11 @@ class Controller_player:
         return player.create_player()
 
     def updateOnePlayer():
+        player_new_data_update = {}
         id = PlayerView.updateOnePlayer()
-        return Player.updateOnePlayer(id)
+        classement= PlayerView.player_new_data()
+        player_new_data_update.update({"id": id, "classement": classement})
+        return Player.updateOnePlayer(player_new_data_update)
 
     def endView():
         print("Goodbye!")

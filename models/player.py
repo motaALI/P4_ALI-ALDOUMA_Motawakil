@@ -70,11 +70,18 @@ class Player:
         return players
 
     def updateOnePlayer(self):
-        player = player_db.get(doc_id=self)
+        print(f"self self self : {self}")
+        id = int(self.get('id'))
+        player = player_db.get(doc_id=id)
         if player is None:
-            print(f"Il y aucun joueur avec l'id {self}")
+            print(f"Il y aucun joueur avec l'id {id}")
         else:
             print(f"Player à Modifier : {player}")
+            classement = int(self.get("classement"))
+            updated_player = player_db.update({"classement": classement}, doc_ids=[id])
+            print(f"updated_player : {updated_player}")
+            
+            
 
     def showPlayerName(id):
         player = player_db.get(doc_id=id)

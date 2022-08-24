@@ -17,6 +17,7 @@ class PlayerView:
         elif sort_with == 2:
             sort_key = "classement"
         else:
+            #TODO use validators
             print("Error !!!!!")
         return sort_key
 
@@ -24,9 +25,9 @@ class PlayerView:
         """
         Customizing sort key to display french equivalent in the message
         """
-        custom_key = "Prènom" if sort_key == "first_name" else sort_key
+        custom_key = "Prénom" if sort_key == "first_name" else sort_key
         print(
-            f"\n{Fore.LIGHTBLUE_EX} Il y a ({len(list)}) joueurs dans votre données triés par {custom_key}\n"
+            f"\n{Fore.LIGHTBLUE_EX} Il y a {len(list)} joueurs triés par {custom_key}\n"
         )
 
         players_table = PrettyTable()
@@ -81,6 +82,12 @@ class PlayerView:
     def updateOnePlayer():
         player_id = input("Entrez l'id de joueur à modifier : ")
         return player_id
-
+    
+    def player_new_data():
+        classement = int(input("Entrez le Classemnt ? "))
+        while Validators.is_valide_classement(classement) is False:
+            classement = int(input(f"{Fore.CYAN} Entrez le Classemnt ? "))
+        return classement
+    
     def startView():
         print("Binevenu sur l'application Chess tournament")
