@@ -281,7 +281,6 @@ class Tournament:
         res = tournament_db.get(doc_id=id)
         if res is not None:
             for t_d in res.values():
-                print(f"TDDDDDDDDDDDDDDD {t_d}")
                 tournamente_data.append(t_d)
             return tournamente_data
         else:

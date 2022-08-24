@@ -129,7 +129,7 @@ class TournamentView:
 
     def addPlayersToTournaments():
         tournament_id = input(
-            "Entrez le id de tornois sur lequel vous voulez ajouter des jours : "
+            "Entrez l'id de tornois sur lequel vous voulez ajouter des jours : "
         )
         return tournament_id
 
@@ -180,7 +180,7 @@ class TournamentView:
 
     def insert_tournament_result():
         tournament_id = int(
-            input("Entrez le id de tornois sur lequel vous voulez voir ses jours : ")
+            input("Entrez l'id de tornois sur lequel vous voulez voir ses jours : ")
         )
         return tournament_id
 
@@ -192,7 +192,7 @@ class TournamentView:
 
     def insert_multi_players():
         tournament_id = input(
-            "Entrez le id de tornois sur lequel vous voulez ajouter des jours : "
+            "Entrez l'id de tornois sur lequel vous voulez ajouter des jours : "
         )
         print(tournament_id)
         en = 0

@@ -11,7 +11,7 @@ class Controller:
         menu = {
             "1": "Gestion des joueurs",
             "2": "Gestion des tournois",
-            "3": "Gestion des matches",
+            "3": "Rapports",
             "q": "Quitter",
         }
 
@@ -29,4 +29,4 @@ class Controller:
             Display.endView()
             return False
         else:
-            print(f"!!!!!!! {Display.ShowError()} !!!!!")
+            Display.ShowError()
