@@ -69,9 +69,9 @@ class Controller_tournament:
         tournament_new_data_update.update(tournament_as_dict)
         return Tournament.updateOneTournamen(tournament_new_data_update)
 
-    def add_players_to_tournament():
+    def addPlayersToTournaments():
         print("Players ADDED To Tournaments")
-        id = TournamentView.insert_multi_players()
+        id =  TournamentView.addPlayersToTournaments()
         return Tournament.get_one_tournament(id)
 
     """
@@ -116,9 +116,11 @@ class Controller_tournament:
         #         print(f"Veuillez ajouter votre {i} jour")
         #         Controller_tournament.add_players_to_tournaments()
         elif response == "3":
+            players = []
             for i in range(8):
                 print(f"Veuillez ajouter votre {i} jour")
-                Controller_tournament.add_players_to_tournaments()
+                players.append(i)
+            Controller_tournament.addPlayersToTournaments(players)
         elif response == "4":
             print("Liste des tournois")
             Controller_tournament.showAllTournaments()
